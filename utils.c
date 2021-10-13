@@ -32,9 +32,8 @@ void read_line(char line[], int max_length) {
     line[i] = '\0';
 }
 
-bool read_int (int * var) {
+bool read_int(int * var) {
     int result;
-
     char line[MAX_LENGTH + 1];
     read_line(line, MAX_LENGTH);
     result = sscanf(line, "%d", var);
@@ -45,15 +44,14 @@ void search_data(avl_tree * t) {
   char palavra[INFO_MAX_LENGTH];
   avl_tree data = NULL;
 
-  printf("\n\nInforma a palavra que deseja procurar: ");
+  printf("\n\nInforme a palavra que deseja procurar: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
   if (avl_search_word(t, palavra, &data)) {
     printf("%s econtrada.\nSinônimo: %s.\n", palavra, (*data).dado.sinonimo);
     congelar_tela("");
   } else {
-    printf("Palavra não está cadastrada.\nQue tal inserir-lá.\n\n");
-
+    printf(WORD_NOT_REGISTERED_TEXT);
     add_data(t);
   }
 }
@@ -62,10 +60,10 @@ void add_data(avl_tree * t) {
   char palavra[INFO_MAX_LENGTH], sinonimo[MAX_LENGTH];
   bool h;
 
-  printf("\n\nInforma a palavra a ser cadastrada: ");
+  printf("\n\nInforme a palavra a ser cadastrada: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
-  printf("Informa seu sinônimo: ");
+  printf("Informe seu sinônimo: ");
   read_line(sinonimo, INFO_MAX_LENGTH);
 
   avl_search(t, palavra, sinonimo, &h);
@@ -77,21 +75,21 @@ void update_data(avl_tree * t) {
   bool h;
 
   if (*t == NULL) {
-    printf("\nNenhuma palavra cadastrada.\nQue tal inserir-lá.\n\n");
+    printf("\nNenhuma palavra cadastrada.\nA edição é impossível.\n\n");
 
     add_data(t);
   }
 
-  printf("\n\nInforma a palavra para atualizar o sinônimo: ");
+  printf("\n\nInforme a palavra para atualizar o sinônimo: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
   if (avl_search_word(t, palavra, &data)) {
-    printf("Informa seu novo sinônimo: ");
+    printf("Informe seu novo sinônimo: ");
     read_line(sinonimo, INFO_MAX_LENGTH);
 
     strcpy((*data).dado.sinonimo, sinonimo);
   } else {
-    printf("Palavra não cadastrada.\nQue tal inserir-lá.\n\n");
+    printf(WORD_NOT_REGISTERED_TEXT);
 
     add_data(t);
   }
@@ -99,14 +97,14 @@ void update_data(avl_tree * t) {
 
 void delete_data(avl_tree * t) {
   if (*t == NULL) {
-    printf("\n\nNenhuma palavra cadastrada.\n");
+    printf("\n\nNenhuma palavra cadastrada. A remoção é impossível.\n");
     return;
   }
 
   char palavra[INFO_MAX_LENGTH];
   bool h;
 
-  printf("\n\nInforma a palavra a ser deletada: ");
+  printf("\n\nInforme a palavra a ser deletada: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
   if (delete(t, palavra, &h)) {
@@ -123,7 +121,7 @@ void load_data(avl_tree * t) {
   bool h;
 
   if (((arquivo = fopen(FILENAME, "r")) == NULL)) {
-    fprintf(stderr, "Erro ao abrir: %s\nArquivo pode não existir.\n", FILENAME);
+    fprintf(stderr, ERR_OPEN_ARC, FILENAME);
     return;
   }
 
@@ -154,7 +152,7 @@ void save_data(avl_tree t) {
   FILE * arquivo;
 
   if (((arquivo = fopen(FILENAME, "w")) == NULL)) {
-    fprintf(stderr, "Erro ao abrir: %s\nArquivo pode não existir.\n", FILENAME);
+    fprintf(stderr, ERR_OPEN_ARC, FILENAME);
     return;
   }
 

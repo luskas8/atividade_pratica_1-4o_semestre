@@ -16,6 +16,7 @@
 #define _UTILS_H
 #define MAX_LENGTH 120
 #define ERR_OPEN_ARC "\n\n\tERRO: NAO foi possivel criar/encontrar o arquivo %s no diretorio atual!\nPor favor crie-o ou mova o projeto para um diretorio que possua permissao de escrita e leitura.\n"
+#define WORD_NOT_REGISTERED_TEXT "Palavra não cadastrada.\nConsidere inseri-la.\n\n"
 #define FILENAME "dicionario.txt"
 
 #include "avl.h"
