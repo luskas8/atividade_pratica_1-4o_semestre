@@ -77,7 +77,7 @@ bool delete(avl_tree * t, char * x, bool * h);
 /*
  * Faz o balanceamento da árvore AVL t após uma remoção 
  * em sua subárvore esquerda e sinaliza se houve uma 
- * dimuição da altura dessa subárvore através de h.
+ * diminuição da altura dessa subárvore através de h.
  */
 void balance_esq(avl_tree * t, bool * h);
 
@@ -85,7 +85,7 @@ void balance_esq(avl_tree * t, bool * h);
 /*
  * Faz o balanceamento da árvore AVL t após uma remoção 
  * em sua subárvore direita e sinaliza se houve uma 
- * dimuição da altura dessa subárvore através de h.
+ * diminuição da altura dessa subárvore através de h.
  */
 void balance_dir(avl_tree *, bool *);
 
@@ -99,8 +99,8 @@ avl_tree get_min(avl_tree * t, bool * h);
 /* Devolve a profundidade da árvore AVL apontada por t. */
 int avl_profundidade(avl_tree t);
 
-/* Busca por palavra na ALV apontada por t e
- * retorna verdadeiro caso encontrado, falso caso contrário.
+/* Busca pela palavra na AVL apontada por t e
+ * retorna verdadeiro caso esta seja encontrada ou falso caso contrário.
  */
 bool avl_search_word(avl_tree * t, char * palavra, avl_tree * data);
 

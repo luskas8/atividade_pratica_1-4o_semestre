@@ -28,7 +28,7 @@ void save_tree(avl_tree t, FILE * arquivo) {
 void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
     if (*t == NULL) {
         if ((*t = (avl_tree) malloc(sizeof(struct avl_no))) == NULL) {
-            fprintf(stderr, "Erro de alocação de memária!\n");
+            fprintf(stderr, "Erro de alocação de memória!\n");
             exit(1);
         }
         *h = true;
@@ -37,9 +37,9 @@ void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
         (*t)->esq = (*t)->dir = NULL;
         (*t)->bal = 0;
     }
-    else if (strcasecmp(palavra, (*t)->dado.palavra) < 0) { // Inserir a esquerda
+    else if (strcasecmp(palavra, (*t)->dado.palavra) < 0) {
         avl_search(&(*t)->esq, palavra, sinonimo, h);
-        if (*h) { // O ramo esquerdo cresceu
+        if (*h) {
             switch ((*t)->bal) {
                 case 1: (*t)->bal = 0;
                         *h = false;
@@ -47,15 +47,14 @@ void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
                 case 0: (*t)->bal = -1;
                         break;
                 case -1:
-                    // Rebalanceamento
-                    if ((*t)->esq->bal == -1) { //Rotação simples p/ direita
+                    if ((*t)->esq->bal == -1) {
                         rotacao_dir(t);
-                        (*t)->dir->bal = 0; //Ajusta o fator de balanceamento
+                        (*t)->dir->bal = 0;
                     }
-                    else { // Rotação dupla para direita
+                    else {
                         rotacao_esq(&(*t)->esq);
                         rotacao_dir(t);
-                        // Ajusta o fator de balanceamento
+
                         if ((*t)->bal == -1) (*t)->dir->bal = 1;
                         else (*t)->dir->bal = 0;
                         if ((*t)->bal == 1) (*t)->esq->bal = -1;
@@ -64,44 +63,43 @@ void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
                     *h = false;
                     (*t)->bal = 0;
                     break;
-            } // fim do switch
+            }
         }
-    } // fim do if
-    else if (strcasecmp(palavra, (*t)->dado.palavra) > 0) { // Inserir a direita
+    }
+    else if (strcasecmp(palavra, (*t)->dado.palavra) > 0) {
         avl_search(&(*t)->dir, palavra, sinonimo, h);
-        if (*h) { // O ramo direito cresceu
+        if (*h) {
             switch ((*t)->bal) {
                 case -1: (*t)->bal = 0;
                          *h = false;
                          break;
                 case 0 : (*t)->bal = 1;
                          break;
-                case 1: // Rebalanceamento
-                    if ((*t)->dir->bal == 1) { // Rotação simples p/ esquerda
+                case 1:
+                    if ((*t)->dir->bal == 1) {
                         rotacao_esq(t);
-                        // Ajusta o fator de balanceamento
                         (*t)->esq->bal = 0;
                     }
-                    else { // Rotação dupla para esquerda
+                    else {
                         rotacao_dir(&(*t)->dir);
                         rotacao_esq(t);
-                        // Ajusta o fator de balanceamento
+
                         if ((*t)->bal == 1) (*t)->esq->bal = -1;
                         else (*t)->esq->bal = 0;
                         if ((*t)->bal == -1) (*t)->dir->bal = 1;
                         else (*t)->dir->bal = 0;
-                    } // fim do else
+					}
                     *h = false;
                     (*t)->bal = 0;
                     break;
-            } // fim do switch
+            }
         }
-    } // fim do if
-    else { // a palavra já está na árvore
+    }
+    else {
         strcpy((*t)->dado.sinonimo, sinonimo);
         *h = false;
     }
-} // fim de avl_search
+}
 
 bool avl_search_word(avl_tree * t, char * palavra, avl_tree * data) {
     if (*t == NULL) {
@@ -140,19 +138,20 @@ void rotacao_dir(avl_tree * t) {
 bool delete(avl_tree * t, char * x, bool * h) {
     avl_tree p;
     bool result;
-    if (*t == NULL) // A chave não se encontra na árvore
+    if (*t == NULL) {
         return false;
-    else if (strcasecmp(x,(*t)->dado.palavra) == 0) { // a chave está neste nó
+	}
+    else if (strcasecmp(x,(*t)->dado.palavra) == 0) {
         p = *t;
         if ((*t)->esq == NULL) { // nó folha ou somente com subárvore direita
             *t = p->dir;
             *h = true;
         }
-        else if ((*t)->dir == NULL) { // nó com uma única subárvore esquerda
+        else if ((*t)->dir == NULL) {
             *t = p->esq;
             *h = true;
         }
-        else { // nó com duas subávores
+        else {
             p = get_min(&(*t)->dir, h);
             (*t)->dado = p->dado;
             if(*h) balance_dir(t, h);
@@ -170,50 +169,52 @@ bool delete(avl_tree * t, char * x, bool * h) {
         if (*h) balance_dir(t, h);
         return result;
     }
-} // fim do delete
+}
 
 void balance_dir(avl_tree * t, bool * h) {
     avl_tree p1, p2;
     int b1, b2;
 
     switch ((*t)->bal) {
-        case 1: (*t)->bal = 0;
-                break;
-        case 0: (*t)->bal = -1;
-                *h = false;
-                break;
-        case -1: // rebalanceamento
-                p1 = (*t)->esq;
-                b1 = p1->bal;
-                if (b1 <= 0) { // rotação simples
-                    (*t)->esq = p1->dir;
-                    p1->dir = *t;
-                    if (b1 == 0) {
-                        (*t)->bal = -1;
-                        p1->bal = 1;
-                        *h = false;
-                    }
-                    else {
-                        (*t)->bal = 0;
-                        p1->bal = 0;
-                    }
-                    *t = p1;
-                }
-                else { // rotaçãoo dupla
-                    p2 = p1->dir;
-                    b2 = p2->bal;
-                    p1->dir = p2->esq;
-                    p2->esq = p1;
-                    p1->esq = p2->dir;
-                    p2->dir = *t;
-                    if(b2 == -1) (*t)->bal = 1;
-                    else (*t)->bal = 0;
-                    if(b2 == 1) p1->bal = -1;
-                    else p1->bal = 0;
-                    *t = p2;
-                    p2->bal = 0;
-                }
-    } // fim do switch
+        case 1:
+			(*t)->bal = 0;
+			break;
+        case 0:
+			(*t)->bal = -1;
+			*h = false;
+			break;
+        case -1:
+			p1 = (*t)->esq;
+			b1 = p1->bal;
+			if (b1 <= 0) {
+				(*t)->esq = p1->dir;
+				p1->dir = *t;
+				if (b1 == 0) {
+					(*t)->bal = -1;
+					p1->bal = 1;
+					*h = false;
+				}
+				else {
+					(*t)->bal = 0;
+					p1->bal = 0;
+				}
+				*t = p1;
+			}
+			else {
+				p2 = p1->dir;
+				b2 = p2->bal;
+				p1->dir = p2->esq;
+				p2->esq = p1;
+				p1->esq = p2->dir;
+				p2->dir = *t;
+				if(b2 == -1) (*t)->bal = 1;
+				else (*t)->bal = 0;
+				if(b2 == 1) p1->bal = -1;
+				else p1->bal = 0;
+				*t = p2;
+				p2->bal = 0;
+			}
+    }
 }
 
 void balance_esq(avl_tree * t, bool * h) {
@@ -221,43 +222,45 @@ void balance_esq(avl_tree * t, bool * h) {
     int b1, b2;
 
     switch ((*t)->bal) {
-        case -1: (*t)->bal = 0;
-                 break;
-        case 0: (*t)->bal = 1;
-                *h = false;
-                break;
-        case 1: // rebalanceamento
-                p1 = (*t)->dir;
-                b1 = p1->bal;
-                if (b1 >= 0) { // rotação simples
-                    (*t)->dir = p1->esq;
-                    p1->esq = *t;
-                    if (b1 == 0) {
-                        (*t)->bal = 1;
-                        p1->bal = -1;
-                        *h = false;
-                    }
-                    else {
-                        (*t)->bal = 0;
-                        p1->bal = 0;
-                    }
-                    *t = p1;
-                }
-                else { // rotação dupla
-                    p2 = p1->esq;
-                    b2 = p2->bal;
-                    p1->esq = p2->dir;
-                    p2->dir = p1;
-                    p1->dir = p2->esq;
-                    p2->esq = *t;
-                    if (b2 == 1) (*t)->bal = -1;
-                    else (*t)->bal = 0;
-                    if (b2 == -1) p1->bal = 1;
-                    else p1->bal = 0;
-                    *t = p2;
-                    p2->bal = 0;
-                }
-    } // fim do switch
+        case -1:
+			(*t)->bal = 0;
+            break;
+        case 0:
+			(*t)->bal = 1;
+			*h = false;
+			break;
+        case 1:
+			p1 = (*t)->dir;
+			b1 = p1->bal;
+			if (b1 >= 0) {
+				(*t)->dir = p1->esq;
+				p1->esq = *t;
+				if (b1 == 0) {
+					(*t)->bal = 1;
+					p1->bal = -1;
+					*h = false;
+				}
+				else {
+					(*t)->bal = 0;
+					p1->bal = 0;
+				}
+				*t = p1;
+			}
+			else {
+				p2 = p1->esq;
+				b2 = p2->bal;
+				p1->esq = p2->dir;
+				p2->dir = p1;
+				p1->dir = p2->esq;
+				p2->esq = *t;
+				if (b2 == 1) (*t)->bal = -1;
+				else (*t)->bal = 0;
+				if (b2 == -1) p1->bal = 1;
+				else p1->bal = 0;
+				*t = p2;
+				p2->bal = 0;
+			}
+    }
 }
 
 avl_tree get_min(avl_tree * t, bool * h) {
@@ -275,8 +278,7 @@ avl_tree get_min(avl_tree * t, bool * h) {
     }
 }
 
-int avl_profundidade(avl_tree t)
-{
+int avl_profundidade(avl_tree t) {
     if (t == NULL) {
         return 0;
     }

@@ -15,7 +15,9 @@
 #ifndef _UTILS_H
 #define _UTILS_H
 #define MAX_LENGTH 120
-#define ERR_OPEN_ARC "\n\n\tERRO: NAO foi possivel criar/encontrar o arquivo %s no diretorio atual!\nPor favor crie-o ou mova o projeto para um diretorio que possua permissao de escrita.\n"
+#define ERR_OPEN_ARC "\n\n\tERRO: NÃO foi possível criar/encontrar o arquivo %s no diretorio atual!\nPor favor crie-o ou mova o projeto para um diretorio que possua permissão de leitura e escrita.\n"
+#define WORD_NOT_REGISTERED_TEXT "Palavra não cadastrada.\nConsidere inseri-la.\n\n"
+#define OPERATION_SUCCESS_TEXT "Operação realizada com sucesso!\n"
 #define FILENAME "dicionario.txt"
 
 #include "avl.h"
@@ -24,15 +26,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Função que aguada o usuário pressionar ENTER para continuar a 
+/* Função que aguarda o usuário pressionar ENTER para continuar a 
 execução do programa. */
-void pausarTela(char []);
+void congelar_tela();
 
 /* Função recebe um vetor de caractere e seu inteiro de tamanho e lê as 
 informações digitadas na linha. */
 void read_line (char line[], int max_length);
 
-/* Função ecebe um inteiro para ser lido como entrada do teclado. */
+/* Função recebe um inteiro para ser lido como entrada do teclado. */
 bool read_int (int * var);
 
 /* Função para buscar certa palavra numa AVL apontada por t

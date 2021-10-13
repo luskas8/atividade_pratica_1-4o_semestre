@@ -1,6 +1,6 @@
 /* main.c
  *
- * Implementação de um programa para lista uma AVL
+ * Implementação de um programa para listar uma AVL
  * de palavras e seus sinônimos, assim como gravar
  * essas informações num arquivo.
  * 
@@ -32,7 +32,7 @@ enum menu_opcoes {
 int menu(char * [], int);
 
 int main() {
-  // configugrando localização para português
+  // configurando localização para português
   setlocale(LC_ALL, "Portuguese");
 
   // opções do menu
@@ -44,7 +44,7 @@ int main() {
     "Sair do programa"
   };
 
-  // variável para AVL de dicionário de  palavras e seus sinônimos
+  // variável para AVL de dicionário de palavras e seus sinônimos
   avl_tree dicionario = NULL;
 
   load_data(&dicionario);
@@ -56,22 +56,23 @@ int main() {
     switch (op) {
       case CAD_DADO:
         add_data(&dicionario);
-      break;
+      	break;
       case SEARCH_SINONIMO:
         search_data(&dicionario);
-      break;
+      	break;
       case UPDATE_SINONIMO:
         update_data(&dicionario);
-      break;
+      	break;
       case DELETE_DADO:
         delete_data(&dicionario);
-      break;
+      	break;
       case SAIR:
         save_data(dicionario);
-      break;
+		printf("\nAdeus!\n");
+      	break;
       default:
         printf("\n\tOpção inválida!\n");
-      break;
+      	break;
     }
   } while (op != SAIR);
 
@@ -87,7 +88,7 @@ int menu(char * opcoes[], int num) {
   }
 
   printf("%02d - %s\n", SAIR, opcoes[i]);
-  printf("Opcao: ");
+  printf("Opção: ");
   read_int(&op);
   
   return op;
