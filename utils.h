@@ -15,7 +15,7 @@
 #ifndef _UTILS_H
 #define _UTILS_H
 #define MAX_LENGTH 120
-#define ERR_OPEN_ARC "\n\n\tERRO: NAO foi possivel criar/encontrar o arquivo %s no diretorio atual!\nPor favor crie-o ou mova o projeto para um diretorio que possua permissao de escrita.\n"
+#define ERR_OPEN_ARC "\n\n\tERRO: NAO foi possivel criar/encontrar o arquivo %s no diretorio atual!\nPor favor crie-o ou mova o projeto para um diretorio que possua permissao de escrita e leitura.\n"
 #define FILENAME "dicionario.txt"
 
 #include "avl.h"
@@ -24,9 +24,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* Função que aguada o usuário pressionar ENTER para continuar a 
+/* Função que aguarda o usuário pressionar ENTER para continuar a 
 execução do programa. */
-void pausarTela(char []);
+void congelar_tela(char []);
 
 /* Função recebe um vetor de caractere e seu inteiro de tamanho e lê as 
 informações digitadas na linha. */

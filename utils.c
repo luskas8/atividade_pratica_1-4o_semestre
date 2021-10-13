@@ -14,7 +14,7 @@
 
 #include "utils.h"
 
-void pausarTela(char message[]) {
+void congelar_tela(char message[]) {
     printf("%s", message);
     printf("Pressione ENTER para voltar ao menu...\n");
     char ch;
@@ -50,7 +50,7 @@ void search_data(avl_tree * t) {
 
   if (avl_search_word(t, palavra, &data)) {
     printf("%s econtrada.\nSinônimo: %s.\n", palavra, (*data).dado.sinonimo);
-    pausarTela("");
+    congelar_tela("");
   } else {
     printf("Palavra não está cadastrada.\nQue tal inserir-lá.\n\n");
 
@@ -114,7 +114,7 @@ void delete_data(avl_tree * t) {
   } else {
     printf("%s não está na árvore.\n", palavra);
   }
-  pausarTela("");
+  congelar_tela("");
 }
 
 void load_data(avl_tree * t) {
