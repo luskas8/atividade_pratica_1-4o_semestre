@@ -68,6 +68,7 @@ int main() {
       	break;
       case SAIR:
         save_data(dicionario);
+		printf("\nAdeus!\n");
       	break;
       default:
         printf("\n\tOpção inválida!\n");
@@ -87,7 +88,7 @@ int menu(char * opcoes[], int num) {
   }
 
   printf("%02d - %s\n", SAIR, opcoes[i]);
-  printf("Opcao: ");
+  printf("Opção: ");
   read_int(&op);
   
   return op;

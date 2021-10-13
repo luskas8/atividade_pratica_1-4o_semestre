@@ -28,7 +28,7 @@ void save_tree(avl_tree t, FILE * arquivo) {
 void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
     if (*t == NULL) {
         if ((*t = (avl_tree) malloc(sizeof(struct avl_no))) == NULL) {
-            fprintf(stderr, "Erro de alocação de memária!\n");
+            fprintf(stderr, "Erro de alocação de memória!\n");
             exit(1);
         }
         *h = true;

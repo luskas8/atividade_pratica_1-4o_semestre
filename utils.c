@@ -14,8 +14,7 @@
 
 #include "utils.h"
 
-void congelar_tela(char message[]) {
-    printf("%s", message);
+void congelar_tela() {
     printf("Pressione ENTER para voltar ao menu...\n");
     char ch;
     read_line(&ch, 1);
@@ -48,11 +47,10 @@ void search_data(avl_tree * t) {
   read_line(palavra, INFO_MAX_LENGTH);
 
   if (avl_search_word(t, palavra, &data)) {
-    printf("%s econtrada.\nSinônimo: %s.\n", palavra, (*data).dado.sinonimo);
-    congelar_tela("");
+    printf("A palavra \"%s\" foi encontrada.\nSeu sinônimo é: %s\n", palavra, (*data).dado.sinonimo);
+    congelar_tela();
   } else {
     printf(WORD_NOT_REGISTERED_TEXT);
-    add_data(t);
   }
 }
 
@@ -67,6 +65,7 @@ void add_data(avl_tree * t) {
   read_line(sinonimo, INFO_MAX_LENGTH);
 
   avl_search(t, palavra, sinonimo, &h);
+  printf(OPERATION_SUCCESS_TEXT);
 }
 
 void update_data(avl_tree * t) {
@@ -76,8 +75,6 @@ void update_data(avl_tree * t) {
 
   if (*t == NULL) {
     printf("\nNenhuma palavra cadastrada.\nA edição é impossível.\n\n");
-
-    add_data(t);
   }
 
   printf("\n\nInforme a palavra para atualizar o sinônimo: ");
@@ -88,10 +85,9 @@ void update_data(avl_tree * t) {
     read_line(sinonimo, INFO_MAX_LENGTH);
 
     strcpy((*data).dado.sinonimo, sinonimo);
+	printf(OPERATION_SUCCESS_TEXT);
   } else {
     printf(WORD_NOT_REGISTERED_TEXT);
-
-    add_data(t);
   }
 }
 
@@ -104,15 +100,15 @@ void delete_data(avl_tree * t) {
   char palavra[INFO_MAX_LENGTH];
   bool h;
 
-  printf("\n\nInforme a palavra a ser deletada: ");
+  printf("\n\nInforme a palavra a ser excluída: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
   if (delete(t, palavra, &h)) {
-      printf("Remoção realizada com sucesso!\n");
+    printf(OPERATION_SUCCESS_TEXT);
   } else {
-    printf("%s não está na árvore.\n", palavra);
+    printf(WORD_NOT_REGISTERED_TEXT);
   }
-  congelar_tela("");
+  congelar_tela();
 }
 
 void load_data(avl_tree * t) {
