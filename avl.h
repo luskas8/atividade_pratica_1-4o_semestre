@@ -40,7 +40,7 @@ struct avl_no {
 };
 
 /*
- * Escreve informações da AVL t através de um percurso em ordem.
+ * Escreve informações da AVL t num arquivo passado por parâmetro.
  */
 void save_tree(avl_tree t, FILE * arquivo);
 
