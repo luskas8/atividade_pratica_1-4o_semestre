@@ -101,7 +101,7 @@ void avl_search(avl_tree * t, char * palavra, char * sinonimo, bool * h) {
     }
 }
 
-bool avl_search_word(avl_tree * t, char * palavra, avl_tree * data) {
+bool avl_find_word(avl_tree * t, char * palavra, avl_tree * data) {
     if (*t == NULL) {
         return false;
     }
