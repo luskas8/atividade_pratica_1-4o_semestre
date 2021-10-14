@@ -68,7 +68,7 @@ int main() {
       	break;
       case SAIR:
         save_data(dicionario);
-		printf("\nAdeus!\n");
+	printf("\nAdeus!\n");
       	break;
       default:
         printf("\n\tOpção inválida!\n");
