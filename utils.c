@@ -85,9 +85,11 @@ void update_data(avl_tree * t) {
     read_line(sinonimo, INFO_MAX_LENGTH);
 
     strcpy((*data).dado.sinonimo, sinonimo);
-	printf(OPERATION_SUCCESS_TEXT);
+    printf(OPERATION_SUCCESS_TEXT);
   } else {
     printf(WORD_NOT_REGISTERED_TEXT);
+    congelar_tela();
+    
   }
 }
 

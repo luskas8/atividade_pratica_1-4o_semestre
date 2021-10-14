@@ -20,7 +20,7 @@
 void save_tree(avl_tree t, FILE * arquivo) {
     if (t != NULL) {
         save_tree(t->esq, arquivo);
-        fprintf(arquivo, "%s %s\n", t->dado.palavra, t->dado.sinonimo);
+        fprintf(arquivo, "%s %s", t->dado.palavra, t->dado.sinonimo);
         save_tree(t->dir, arquivo);
     }
 }
@@ -110,9 +110,9 @@ bool avl_find_word(avl_tree * t, char * palavra, avl_tree * data) {
         (*data) = (*t);
         return true;
     } else if (strcasecmp(palavra, (*t)->dado.palavra) < 0) {
-        return avl_search_word(&(*t)->esq, palavra, data);
+        return avl_find_word(&(*t)->esq, palavra, data);
     } else if (strcasecmp(palavra, (*t)->dado.palavra) > 0) {
-        return avl_search_word(&(*t)->dir, palavra, data);
+        return avl_find_word(&(*t)->dir, palavra, data);
     }
 }
 
