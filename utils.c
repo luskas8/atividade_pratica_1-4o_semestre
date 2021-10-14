@@ -46,7 +46,7 @@ void search_data(avl_tree * t) {
   printf("\n\nInforme a palavra que deseja procurar: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
-  if (avl_search_word(t, palavra, &data)) {
+  if (avl_find_word(t, palavra, &data)) {
     printf("A palavra \"%s\" foi encontrada.\nSeu sinônimo é: %s\n", palavra, (*data).dado.sinonimo);
     congelar_tela();
   } else {
@@ -80,7 +80,7 @@ void update_data(avl_tree * t) {
   printf("\n\nInforme a palavra para atualizar o sinônimo: ");
   read_line(palavra, INFO_MAX_LENGTH);
 
-  if (avl_search_word(t, palavra, &data)) {
+  if (avl_find_word(t, palavra, &data)) {
     printf("Informe seu novo sinônimo: ");
     read_line(sinonimo, INFO_MAX_LENGTH);
 
