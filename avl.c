@@ -110,9 +110,9 @@ bool avl_search_word(avl_tree * t, char * palavra, avl_tree * data) {
         (*data) = (*t);
         return true;
     } else if (strcasecmp(palavra, (*t)->dado.palavra) < 0) {
-        avl_search_word(&(*t)->esq, palavra, data);
+        return avl_search_word(&(*t)->esq, palavra, data);
     } else if (strcasecmp(palavra, (*t)->dado.palavra) > 0) {
-        avl_search_word(&(*t)->dir, palavra, data);
+        return avl_search_word(&(*t)->dir, palavra, data);
     }
 }
 
