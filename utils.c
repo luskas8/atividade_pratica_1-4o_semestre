@@ -133,6 +133,7 @@ void load_data(avl_tree * t) {
           ctl++;
         } else {
           strcpy(sinonimo, dado);
+	  ctl = 0;
         }
       }
       dado = strtok(NULL, " ");
