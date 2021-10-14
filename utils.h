@@ -57,8 +57,12 @@ void update_data(avl_tree * t);
  * caso exista. */
 void delete_data(avl_tree * t);
 
+/* Função para leitira dos dados de arquivo de texto 'dicionário.txt'
+ * passando estes dados para a árvore AVL apontada por t. */
 void load_data(avl_tree * t);
 
+/* Função salva os dados de uma árvore AVL apontada por t,
+ * num arquivo de texto 'dicionario.txt'. */
 void save_data(avl_tree t);
 
 #endif
