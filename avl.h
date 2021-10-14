@@ -102,6 +102,6 @@ int avl_profundidade(avl_tree t);
 /* Busca pela palavra na AVL apontada por t e
  * retorna verdadeiro caso esta seja encontrada ou falso caso contrário.
  */
-bool avl_search_word(avl_tree * t, char * palavra, avl_tree * data);
+bool avl_find_word(avl_tree * t, char * palavra, avl_tree * data);
 
 #endif
